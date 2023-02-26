@@ -110,6 +110,7 @@ class Instructions:
 		self.folder_contents = contents
 		self.contents = self.folder_contents[0]
 		self.instruc = self.read_instructions(self.folder_contents)
+		self.instruction
 		result = self.execute()
 		if not result: 
 			return False 
@@ -129,9 +130,6 @@ class Instructions:
 			gom.script.sys.close_user_defined_dialog (dialog = self.DIALOG, result = False) 
 		elif widget == self.DIALOG.next and self.DIALOG.next.text == 'Ok': 
 			gom.script.sys.close_user_defined_dialog(dialog = self.DIALOG, result = True) 
-		print('current page:',self.current_page) 
-		print('Length of instructions:',len(self.contents))
-#		print(self.contents) 
 		self.DIALOG.label.text = self.instruc[self.current_page] 
 		file = os.open( self.contents[self.current_page], os.O_RDONLY | os.O_BINARY )
 		bytes = os.read( file, os.fstat( file ).st_size )
@@ -146,7 +144,8 @@ class Instructions:
 		if self.current_page == 1: 
 			self.DIALOG.prev.enabled = False 
 		else:
-			self.DIALOG.prev.enabled = True 
+			self.DIALOG.prev.enabled = True
+		c3d_logger.log('Instructions have been successfully loaded', INFO, show_dialog=False)
 	
 	def read_instructions(self,contents): 
 		instruc = {}
