@@ -20,27 +20,16 @@
 
 from Base.Misc import Globals, Utils, DefaultSettings, Messages
 from Base import Workflow, Evaluate
+import C3D_Dialogs
 import gom
 import os
 
 
 class StartUpV8( Workflow.StartUpV8, metaclass = Utils.MetaClassPatch ):
 
-	def set_additional_project_keywords ( self ):
-		# Add new project keywords to the following table as indicated by the given example.
-		# You have to patch the start dialog below by adding corresponding input fields to it.
-		# The kiosk software will set the user's input as a project keyword.
-		Globals.ADDITIONAL_PROJECTKEYWORDS = [
-			# specify keywords as tuples of four values
-			#   ('name', 'description', 'inputfield', 'optional')
-			#        name: Name of your new project keyword (string)
-			# description: The keyword description (string)
-			#  inputfield: The name of the input field of the start dialog (string)
-			#    optional: Specify if the kiosk should allow the start button also for an empty input value
-			#              (True or False)
-			# Example:
-			#   ('mykeyword', 'My keyword description:', 'input_my_keyword', False)
-			]
+	def __init__(self, parent, logger): 
+		super.__init__(self, parent,logger) 
+		self.dialog = C3D_Dialogs.Dialogs
 
 
 class PatchedEvaluationAnalysis( Evaluate.EvaluationAnalysis, metaclass = Utils.MetaClassPatch ):
